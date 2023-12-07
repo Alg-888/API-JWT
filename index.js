@@ -10,6 +10,12 @@ app.use("/api/v1", authRouter);
 
 app.use(express.static("public"))
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/beneficiarios', beneficiarioRoutes);
+
+
 const PORT= process.env.PORT || 9000
 app.listen(9000, ()=> console.log('Prendido  http://localhost:'+PORT+'/'));
 
