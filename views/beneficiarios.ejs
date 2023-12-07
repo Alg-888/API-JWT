@@ -1,0 +1,111 @@
+<%- include('templates/cabecera',{tituloweb:'Pagina de inicio'}) %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD MONGO DB</title>
+    <style>
+      .container{
+          max-width: 960px;   
+      }
+  </style>
+
+  </head>
+  
+  <div class="container">
+    <h1 class="text-primary">Beneficiarios</h1>
+    <div class="shadow-lg p-5 mb-5 bg-body rounded">
+        <h4>Datos del beneficiario</h4>
+        <form action="/beneficiarios/crear" method="POST">
+
+          <div class="col-md-6">
+            <label for="identificacion" class="form-label">Identificacion *</label>
+            <input id="identificacion" name="identificacion" type="text" class="form-control" required>
+        </div>
+
+            <div class="col-md-6">
+                <label for="nombre_Completo" class="form-label">Nombre completo *</label>
+                <input id="nombre_Completo" name="nombre_Completo" type="text" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="telefono" class="form-label">Telefono *</label>
+                <input id="telefono" name="telefono" type="number" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="num_Familiares" class="form-label">Numero de familiares *</label>
+              <input id="num_Familiares" name="num_Familiares" type="number" class="form-control" required>
+          </div>
+            
+          </div> 
+            <button type="submit" class="w-100 btn btn-guardar btn-lg"><i class="bi bi-save"></i>Registrar Carga</button>
+        </form>
+        <!-- Tabla Alumnos  -->
+        <table id="tablaBeneficiarios" class="table mt-4">
+            <thead>
+                <tr>
+                    <th style="display: none;">ID</th>
+                    <th>Identificacion</th>
+                    <th>Nombre completo</th>
+                    <th>Telefono</th>
+                    <th>Numero de familiares</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% beneficiarios.forEach( (beneficiario) => { %>
+                    <tr>
+                        <td style="display: none;"><%= beneficiario._id %></td>
+                        <td><%= beneficiario.identificacion %></td>
+                        <td><%= beneficiario.nombre_Completo %></td>
+                        <td><%= beneficiario.telefono %></td>
+                        <td><%= beneficiario.num_Familiares %></td>
+                        <td>
+                            <a type="button" class="btnEditar btn btn-outline-primary bi bi-pencil"></a>
+                            <a href="/beneficiarios/borrar/<%= beneficiario._id %>" class="btn btn-outline-danger bi bi-trash"></a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+</div>
+<!-- Modal para Editar   -->
+<div id="modalBeneficiario" class="modal fade" tabindex="-1" aria-labelledby="modalBeneficiario" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="exampleModalLabel">Editar beneficiario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/beneficiarios/editar" method="POST">
+              <input name="id_Editar" id="id_Editar" type="text" hidden>
+
+              <div class="mb-3">
+                <label for="identificacion_Editar" class="col-form-label">Identificacion:</label>
+                <input id="identificacion_Editar" name="identificacion_Editar" type="text" class="form-control" value="">
+              </div>
+
+            <div class="mb-3">
+              <label for="nombre_Completo_Editar" class="col-form-label">Nombre completo:</label>
+              <input id="nombre_Completo_Editar" name="nombre_Completo_Editar" type="text" class="form-control" value="">
+            </div>
+
+            <div class="mb-3">
+              <label for="telefono_Editar" class="col-form-label">Telefono:</label>
+              <input id="telefono_Editar" name="telefono_Editar" type="number" class="form-control" value="">
+            </div>
+
+            <div class="mb-3">
+              <label for="num_Familiares_Editar" class="col-form-label">Numero de familiares:</label>
+              <input id="num_Familiares_Editar" name="num_Familiares_Editar" type="number" class="form-control" value="">
+            </div>
+         
+        </div>
+        <div class="modal-footer">              
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+<%- include('templates/footer') %>
