@@ -2,6 +2,10 @@ import "dotenv/config"
 import "./database/connectdb.js"
 import express from 'express';
 import authRouter from './routes/auth.route.js'
+import beneficiarios from './routes/Beneficiarios.js'
+
+app.use(beneficiarios)
+
 
 const app = express();
 app.use(express.json());
